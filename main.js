@@ -31,19 +31,20 @@ function createcircle(event) {
   }
 }
 
-var dt = 1;
-var kw = 50;
+var dt = 0.05;
+var kw = 100000;
 var m = 1;
 var q = 1;
-var kc = 30;
-var kv = 0.01;
-var g1 = 0.00025;
+var kc = 10000;
+var kv = 0.5;
+var g1 = 0.05;
 
 function drop() {
   dropButton = document.getElementById("dropButton");
   document.body.removeChild(dropButton);
   chargeSignForm = document.getElementById("chargeSignForm");
   document.body.removeChild(chargeSignForm);
+  document.removeEventListener("mousedown", createcircle);
   circles = document.querySelectorAll('.circle')
   circles.forEach(circle => {
     let y = parseInt(circle.style.top);
@@ -69,8 +70,8 @@ function drop() {
           yo = parseInt(otherCircle.style.top);
           d = ((x - xo) ** 2 + (y - yo) ** 2) ** .5
           if (d <= 2 * radius) {
-            fx = fx + kw * q ** 2 * (x - xo) / d ** 3 // - kv*u
-            fy = fy + kw * q ** 2 * (y - yo) / d ** 3 // - kv*v
+            fx = fx + kw * q ** 2 * (x - xo) / d ** 3 - kv*u
+            fy = fy + kw * q ** 2 * (y - yo) / d ** 3 - kv*v
           } else {
             mathSign = circle.chargeSign * otherCircle.chargeSign;
             fx = fx + mathSign * kc * q ** 2 * (x - xo) / d ** 3
