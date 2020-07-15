@@ -1,4 +1,4 @@
-var radius = 30;
+var radius = 25;
 
 function createcircle(event) {
   if (event.target.tagName === "HTML") {
@@ -31,13 +31,14 @@ function createcircle(event) {
   }
 }
 
-var dt = 0.05;
-var kw = 100000;
+var dt = 0.075;
+var kw = 5;
 var m = 1;
 var q = 1;
-var kc = 10000;
-var kv = 0.5;
-var g1 = 0.05;
+var kc = 2000;
+var kv = 0.35;
+var g1 = 0.1;
+var averageColor;
 
 function drop() {
   dropButton = document.getElementById("dropButton");
@@ -54,11 +55,12 @@ function drop() {
     let t = 0;
     let call = setInterval(frame, dt);
     circle.count = 0;
+
     function frame() {
       yw = parseInt(window.innerHeight);
       xw = parseInt(window.innerWidth);
       circle.count += 1;
-      if (circle.count > 1){
+      if (circle.count > 1) {
         fx0 = circle.fx;
         fy0 = circle.fy;
       }
@@ -68,33 +70,42 @@ function drop() {
         if (circle != otherCircle) {
           xo = parseInt(otherCircle.style.left);
           yo = parseInt(otherCircle.style.top);
+          if (circle.count > 1) {
+            d0 = d;
+          }
           d = ((x - xo) ** 2 + (y - yo) ** 2) ** .5
           if (d <= 2 * radius) {
-            fx = fx + kw * q ** 2 * (x - xo) / d ** 3 - kv*u
-            fy = fy + kw * q ** 2 * (y - yo) / d ** 3 - kv*v
-          } else {
-            mathSign = circle.chargeSign * otherCircle.chargeSign;
-            fx = fx + mathSign * kc * q ** 2 * (x - xo) / d ** 3
-            fy = fy + mathSign * kc * q ** 2 * (y - yo) / d ** 3
+            fx = fx + kw * (2 * radius - d) * (x - xo) / d - kv*u
+            fy = fy + kw * (2 * radius - d) * (y - yo) / d - kv*v
+            if (d0 > 2 * radius) {
+              rgb1 = circle.style.backgroundColor;
+              rgb2 = otherCircle.style.backgroundColor;
+              averageColor = getAverageColor(rgb1, rgb2);
+              circle.style.backgroundColor = getAverageColor(averageColor, rgb1);
+              otherCircle.style.backgroundColor = getAverageColor(averageColor, rgb2);
+            }
           }
+          mathSign = circle.chargeSign * otherCircle.chargeSign;
+          fx = fx + mathSign * kc * q ** 2 * (x - xo) / d ** 3
+          fy = fy + mathSign * kc * q ** 2 * (y - yo) / d ** 3
         }
       });
       circle.fx = fx;
       circle.fy = fy;
       if (y + radius > yw || y - radius < 0) {
-        v = -v
+        v = -0.9*v
       }
       if (x + radius > xw || x - radius < 0) {
-        u = -u
+        u = -0.9*u
       }
       u0 = u;
       v0 = v;
-      if(circle.count == 1){
+      if (circle.count == 1) {
         fx0 = fx;
         fy0 = fy;
       }
-      u = u + (fx+fx0)/2 / m * dt;
-      v = v + (fy+fy0)/2 / m * dt;
+      u = u + (fx + fx0) / 2 / m * dt;
+      v = v + (fy + fy0) / 2 / m * dt;
       x = x + (u0 + u) / 2 * dt;
       y = y + (v0 + v) / 2 * dt;
       circle.style.top = y + 'px';
