@@ -1,0 +1,27 @@
+.circle {
+  transform: translate(-50%,-50%);
+  font-size: 30px;
+}
+
+.signSymbol {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  font-family: "Ubuntu";
+  color: white;
+}
+
+#dropButton {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+#gravitySliderContainer {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
