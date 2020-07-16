@@ -13,15 +13,15 @@
 
 <body onload="main()">
   <button id="dropButton">Start!</button>
-  <form id="chargeSignForm">
-    <input type="radio" id="positive" name="sign" checked="">
-    <label for="positive">Positive</label><br>
-    <input type="radio" id="negative" name="sign">
-    <label for="negative">Negative</label><br>
-    <input type="radio" id="neuter" name="sign">
-    <label for="neuter">Neuter</label><br>
-  </form>
-  <div id="gravitySliderContainer"><div>Gravity:</div>
+  <div id="chargeSignFormContainer">
+    <form id="chargeSignForm">
+      <label class="chargeSignFormLabel" for="positive"><input type="radio" id="positive" name="sign" checked="">Positive</label>
+      <label class="chargeSignFormLabel" for="negative"><input type="radio" id="negative" name="sign">Negative</label>
+      <label class="chargeSignFormLabel" for="neuter"><input type="radio" id="neuter" name="sign">Neuter</label>
+    </form>
+  </div>
+  <div id="gravitySliderContainer">
+    <div class="sliderLabel">Gravity</div>
     <input type="range" min="0" max="10" value="0" class="slider" id="gravitySlider">
   </div>
 </body>

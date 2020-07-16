@@ -10,7 +10,7 @@ function createcircle(event) {
     newCircle.style.width = 2 * radius + 'px';
     newCircle.style.height = 2 * radius + 'px';
     newCircle.style.borderRadius = radius + 'px';
-    newCircle.style.backgroundColor = '#' + Math.random().toString(16).substr(2, 6)
+    newCircle.style.backgroundColor = '#' + Math.random().toString(16).substr(2, 6);
     hasPositiveCharge = document.getElementById("positive").checked;
     isNeuter = document.getElementById("neuter").checked;
     if (!isNeuter) {
@@ -36,7 +36,7 @@ var kw = 5;
 var m = 1;
 var q = 1;
 var kc = 2000;
-var kv = 0.1;
+var kv = 0.075;
 var g1 = 0.05
 var ks = 0.95;
 var d0 = 0;
@@ -45,7 +45,7 @@ function drop() {
   dropButton = document.getElementById("dropButton");
   document.body.removeChild(dropButton);
   chargeSignForm = document.getElementById("chargeSignForm");
-  document.body.removeChild(chargeSignForm);
+  document.getElementById("chargeSignFormContainer").removeChild(chargeSignForm);
   document.removeEventListener("mousedown", createcircle);
   circles = document.querySelectorAll('.circle')
   circles.forEach(circle => {
@@ -93,19 +93,19 @@ function drop() {
       if (y + radius > yw || y - radius < 0) {
         v = -ks*v
         if (y + radius > 1.1*yw){
-          fy = fy - 2*kw*(y + radius - yw) - kv*v*(u**2+v**2)**.5 /2;
+          fy = fy - 50*kw*(y + radius - yw) - kv*v*(u**2+v**2)**.5 /2;
         }
         if (y < 0.9*radius){
-          fy = fy + 2*kw*(radius - y) - kv*v*(u**2+v**2)**.5 /2;
+          fy = fy + 50*kw*(radius - y) - kv*v*(u**2+v**2)**.5 /2;
         }
       }
       if (x + radius > xw || x - radius < 0) {
         u = -ks*u
         if (x + radius > 1.1*xw){
-          fx = fx - 2*kw*(x + radius - xw) - kv*u*(u**2+v**2)**.5 /2
+          fx = fx - 50*kw*(x + radius - xw) - kv*u*(u**2+v**2)**.5 /5
         }
         if (x < 0.9*radius){
-          fx = fx + 2*kw*(radius - x) - kv*u*(u**2+v**2)**.5 /2;
+          fx = fx + 50*kw*(radius - x) - kv*u*(u**2+v**2)**.5 / 5;
         }
       }
       circle.fx = fx;
