@@ -12,12 +12,12 @@ body {
   top: 50%;
   transform: translateY(-50%);
   text-align: center;
-  font-family: "Ubuntu";
+  font-family: "Ubuntu Mono", monospace;
   color: white;
 }
 
 #dropButton {
-  font-family: "Ubuntu Mono";
+  font-family: "Ubuntu Mono", monospace;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -41,14 +41,14 @@ body {
   width: 25vw;
 }
 .sliderLabel {
-  font-family: "Ubuntu Mono";
+  font-family: "Ubuntu Mono", monospace;
   position: relative;
   left: 50%;
   transform: translate(-50%);
   display: table;
 }
 form {
-  font-family: "Ubuntu Mono";
+  font-family: "Ubuntu Mono", monospace;
 }
 
 #chargeSignFormContainer{
