@@ -26,8 +26,8 @@ body {
   background-color: DimGrey;
   color: white;
   border: none;
-  width: 7.5%;
-  height: 4vw;
+  width: 70px;
+  height: 40px;
 }
 
 #gravitySliderContainer {
@@ -37,6 +37,9 @@ body {
   z-index: 1;
 }
 
+#gravitySlider {
+  width: 25vw;
+}
 .sliderLabel {
   font-family: "Ubuntu Mono";
   position: relative;
