@@ -31,14 +31,14 @@ function createcircle(event) {
   }
 }
 
-var dt = 0.075;
-var kw = 10;
+var dt = 0.05;
+var kw = 5;
 var m = 1;
 var q = 1;
 var kc = 2000;
-var kv = 0.4;
-var g1 = 0.1;
-var ks = 0.9;
+var kv = 0.1;
+var g1 = 0.05
+var ks = 0.95;
 var d0 = 0;
 
 function drop() {
@@ -90,14 +90,26 @@ function drop() {
           fy = fy + mathSign * kc * q ** 2 * (y - yo) / d ** 3
         }
       });
-      circle.fx = fx;
-      circle.fy = fy;
       if (y + radius > yw || y - radius < 0) {
         v = -ks*v
+        if (y + radius > 1.1*yw){
+          fy = fy - 2*kw*(y + radius - yw) - kv*v*(u**2+v**2)**.5 /2;
+        }
+        if (y < 0.9*radius){
+          fy = fy + 2*kw*(radius - y) - kv*v*(u**2+v**2)**.5 /2;
+        }
       }
       if (x + radius > xw || x - radius < 0) {
         u = -ks*u
+        if (x + radius > 1.1*xw){
+          fx = fx - 2*kw*(x + radius - xw) - kv*u*(u**2+v**2)**.5 /2
+        }
+        if (x < 0.9*radius){
+          fx = fx + 2*kw*(radius - x) - kv*u*(u**2+v**2)**.5 /2;
+        }
       }
+      circle.fx = fx;
+      circle.fy = fy;
       u0 = u;
       v0 = v;
       if (circle.count == 1) {
