@@ -32,13 +32,14 @@ function createcircle(event) {
 }
 
 var dt = 0.075;
-var kw = 5;
+var kw = 10;
 var m = 1;
 var q = 1;
 var kc = 2000;
-var kv = 0.35;
+var kv = 0.4;
 var g1 = 0.1;
-var averageColor;
+var ks = 0.9;
+var d0 = 0;
 
 function drop() {
   dropButton = document.getElementById("dropButton");
@@ -55,7 +56,6 @@ function drop() {
     let t = 0;
     let call = setInterval(frame, dt);
     circle.count = 0;
-
     function frame() {
       yw = parseInt(window.innerHeight);
       xw = parseInt(window.innerWidth);
@@ -75,8 +75,8 @@ function drop() {
           }
           d = ((x - xo) ** 2 + (y - yo) ** 2) ** .5
           if (d <= 2 * radius) {
-            fx = fx + kw * (2 * radius - d) * (x - xo) / d - kv*u
-            fy = fy + kw * (2 * radius - d) * (y - yo) / d - kv*v
+            fx = fx + kw * (2 * radius - d) * (x - xo) / d - kv*u*(u**2+v**2)**.5
+            fy = fy + kw * (2 * radius - d) * (y - yo) / d - kv*v*(u**2+v**2)**.5
             if (d0 > 2 * radius) {
               rgb1 = circle.style.backgroundColor;
               rgb2 = otherCircle.style.backgroundColor;
@@ -93,10 +93,10 @@ function drop() {
       circle.fx = fx;
       circle.fy = fy;
       if (y + radius > yw || y - radius < 0) {
-        v = -0.9*v
+        v = -ks*v
       }
       if (x + radius > xw || x - radius < 0) {
-        u = -0.9*u
+        u = -ks*u
       }
       u0 = u;
       v0 = v;
@@ -108,8 +108,14 @@ function drop() {
       v = v + (fy + fy0) / 2 / m * dt;
       x = x + (u0 + u) / 2 * dt;
       y = y + (v0 + v) / 2 * dt;
-      circle.style.top = y + 'px';
-      circle.style.left = x + 'px';
+      circle.newy = y + 'px';
+      circle.newx = x + 'px';
+      if(circle == circles[circles.length-1]){
+        circles.forEach(circleToUpdate => {
+          circleToUpdate.style.top = circleToUpdate.newy;
+          circleToUpdate.style.left = circleToUpdate.newx;
+        });
+      }
     }
   });
 }
