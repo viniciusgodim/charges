@@ -36,7 +36,7 @@ var kw = 1;
 var m = 1;
 var q = 1;
 var kc = 1500;
-var kv = 0.1;
+var kv = 0.05;
 var g1 = 0.05;
 var ks = 0.95;
 var d0 = 0;
@@ -73,13 +73,15 @@ function drop() {
         if (circle != otherCircle) {
           xo = otherCircle.oldx;
           yo = otherCircle.oldy;
+          uo = otherCircle.oldu;
+          vo = otherCircle.oldv;
           if (circle.count > 1) {
             d0 = d;
           }
           d = ((x - xo) ** 2 + (y - yo) ** 2) ** .5
           if (d <= 2 * radius) {
-            fx = fx + kw * (2 * radius - d) * (x - xo) / d - kv * u  ;
-            fy = fy + kw * (2 * radius - d) * (y - yo) / d - kv * v  ;
+            fx = fx + kw * (2 * radius - d) * (x - xo) / d - kv * (u-uo)  ;
+            fy = fy + kw * (2 * radius - d) * (y - yo) / d - kv * (v-vo)  ;
             if (d0 > 2 * radius) {
               rgb1 = circle.style.backgroundColor;
               rgb2 = otherCircle.style.backgroundColor;
