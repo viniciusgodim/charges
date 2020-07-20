@@ -42,6 +42,11 @@ var ks = 0.95;
 var d0 = 0;
 
 function drop() {
+  dropButton = document.getElementById("dropButton");
+  document.body.removeChild(dropButton);
+  formContainer = document.getElementById("chargeSignFormContainer");
+  document.body.removeChild(formContainer);
+  document.removeEventListener("mousedown", createcircle);
   mainContainer = document.getElementById("mainContainer");
   circles = document.querySelectorAll('.circle');
   circles.forEach(circle => {
