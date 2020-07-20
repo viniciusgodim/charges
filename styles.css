@@ -22,12 +22,12 @@ body {
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
-  font-size: large;
+  font-size: 3vh;
   background-color: DimGrey;
   color: white;
   border: none;
-  width: 70px;
-  height: 40px;
+  width: 13vh;
+  height: 5vh;
 }
 
 #gravitySliderContainer {
@@ -57,4 +57,15 @@ form {
 
 .chargeSignFormLabel{
   display: inline-block;
+}
+
+#mainContainer {
+  position: absolute;
+  display: inline-block;
+  left: 50%;
+  margin-top: 3vh;
+  transform: translateX(-50%);
+  width: 85%;
+  height: calc(85vh - 60px);
+  border: 1px solid black;
 }
