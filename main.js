@@ -27,8 +27,6 @@ function createcircle(event) {
     } else {
       newCircle.chargeSign = 0;
     }
-    newCircle.u = 0;
-    newCircle.v = 0;
     document.body.appendChild(newCircle);
   }
 }
@@ -44,18 +42,18 @@ var ks = 0.95;
 var d0 = 0;
 
 function drop() {
+  mainContainer = document.getElementById("mainContainer");
   circles = document.querySelectorAll('.circle');
   circles.forEach(circle => {
-    circle.newx = parseInt(circle.style.left);
-    circle.newy = parseInt(circle.style.top);
-    circle.oldx = circle.newx;
-    circle.oldy = circle.newy;
+    circle.oldx = parseInt(circle.style.left);
+    circle.oldy = parseInt(circle.style.top);
+    circle.oldu = 0;
+    circle.oldv = 0;
   });
   circles.forEach(circle => {
     let call = setInterval(frame, dt);
     circle.count = 0;
     function frame() {
-      mainContainer = document.getElementById("mainContainer");
       yw = mainContainer.offsetTop + mainContainer.offsetHeight;
       xw = mainContainer.offsetLeft + mainContainer.offsetWidth / 2;
       yw0 = mainContainer.offsetTop;
@@ -67,8 +65,8 @@ function drop() {
       }
       fx = 0;
       fy = g1 * m * parseInt(document.getElementById('gravitySlider').value);
-      u = circle.u;
-      v = circle.v;
+      u = circle.oldu;
+      v = circle.oldv;
       x = circle.oldx;
       y = circle.oldy;
       circles.forEach(otherCircle => {
@@ -153,8 +151,8 @@ function drop() {
         }
       }
 
-      circle.u = u;
-      circle.v = v;
+      circle.newu = u;
+      circle.newv = v;
       circle.newy = y;
       circle.newx = x;
       if (circle == circles[circles.length - 1]) {
@@ -163,6 +161,8 @@ function drop() {
           circleToUpdate.style.left = circleToUpdate.newx + 'px';
           circleToUpdate.oldx = circleToUpdate.newx;
           circleToUpdate.oldy = circleToUpdate.newy;
+          circleToUpdate.oldu = circleToUpdate.newu;
+          circleToUpdate.oldv = circleToUpdate.newv;
         });
       }
     }
